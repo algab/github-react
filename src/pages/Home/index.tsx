@@ -62,7 +62,7 @@ const Home: React.FC = () => {
         {!loading && users.length === 0 && <NotFound />}
       </Grid>
     </Container>
-  )
+  );
 };
 
 export default Home;

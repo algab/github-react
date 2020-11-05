@@ -23,7 +23,7 @@ interface Props {
   openRepository(): void;
   openStar(): void;
   openLink(): void;
-};
+}
 
 const UserCard: React.FC<Props> = ({ user, openRepository, openStar, openLink }) => {
   return (

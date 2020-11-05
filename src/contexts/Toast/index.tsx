@@ -5,7 +5,7 @@ const ToastContext = createContext({});
 
 interface Props {
   children: React.ReactChild;
-};
+}
 
 export const ToastProvider: React.FC<Props> = ({ children }) => {
   const [showToast, setShowToast] = useState(false);

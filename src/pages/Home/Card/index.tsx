@@ -8,7 +8,7 @@ import { CardHeader, ImgUser, NickUser } from './styles';
 interface Props {
   user: ListUser;
   selectUser(login: string): void;
-};
+}
 
 const HomeCard: React.FC<Props> = ({ user, selectUser }) => {
   return (
@@ -25,7 +25,7 @@ const HomeCard: React.FC<Props> = ({ user, selectUser }) => {
         </Button>
       </CardActions>
     </Card>
-  )
+  );
 };
 
 export default HomeCard;

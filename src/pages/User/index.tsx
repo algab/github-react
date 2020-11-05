@@ -15,7 +15,7 @@ import { Progress } from './styles';
 
 interface UserProps {
   name: string;
-};
+}
 
 const User: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -91,7 +91,7 @@ const User: React.FC = () => {
         handleClose={() => setDialogStar(!dialogStar)}
       />
     </>
-  )
+  );
 };
 
 export default User;

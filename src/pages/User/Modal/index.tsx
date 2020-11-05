@@ -44,7 +44,7 @@ const UserModal: React.FC<Props> = ({ name, open, handleClose, data }) => {
         </Button>
       </DialogActions>
     </Dialog>
-  )
+  );
 };
 
 export default UserModal;

@@ -35,7 +35,7 @@ const HomeInput: React.FC<Props> = ({ handleNick, searchUsers }) => {
         fullWidth
       />
     </InputSearch>
-  )
+  );
 };
 
 export default HomeInput;
