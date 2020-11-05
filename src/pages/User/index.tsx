@@ -30,14 +30,14 @@ const User: React.FC = () => {
   const params = useParams<UserProps>();
 
   useEffect(() => {
-    async function getUser() {
+    async function getUser(): Promise<void> {
       try {
         setLoading(true);
         const response = await api.get(`/users/${params.name}`);
         if (response.status === 200) {
           const result = await axios.all([
             api.get(`/users/${params.name}/repos`),
-            api.get(`/users/${params.name}/starred`)
+            api.get(`/users/${params.name}/starred`),
           ]);
           setRepositories(result[0].data);
           setStars(result[1].data);
@@ -45,7 +45,6 @@ const User: React.FC = () => {
         setUser(response.data);
         setLoading(false);
       } catch (error) {
-        console.log(error);        
         setLoading(false);
         setMessage('Usuário não encontrado.');
         handleToast(true);
@@ -54,7 +53,7 @@ const User: React.FC = () => {
     getUser();
   }, [params, handleToast, setMessage]);
 
-  const openLink = () => {
+  const openLink = (): void => {
     if (user?.html_url) {
       window.open(user?.html_url, '_blank');
     }

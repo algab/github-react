@@ -5,14 +5,14 @@ import Search from '@material-ui/icons/Search';
 import { InputSearch } from './styles';
 
 interface Props {
-  handleNick(event:ChangeEvent<HTMLInputElement>): void
-  searchUsers(): void
+  handleNick(event: ChangeEvent<HTMLInputElement>): void;
+  searchUsers(): void;
 }
 
 const HomeInput: React.FC<Props> = ({ handleNick, searchUsers }) => {
-  const pressEnter = (event: KeyboardEvent<HTMLDivElement>) => {
+  const pressEnter = (event: KeyboardEvent<HTMLDivElement>): void => {
     if (event.key === 'Enter') {
-      searchUsers();      
+      searchUsers();
     }
   };
 

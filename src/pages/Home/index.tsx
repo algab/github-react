@@ -21,11 +21,11 @@ const Home: React.FC = () => {
 
   const history = useHistory();
 
-  const handleNick = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleNick = (event: ChangeEvent<HTMLInputElement>): void => {
     setNick(event.target.value);
   };
 
-  const searchUsers = async () => {
+  const searchUsers = async (): Promise<void> => {
     try {
       setLoading(true);
       const response = await api.get(`/search/users?q=${nick}&per_page=6`);
@@ -39,7 +39,7 @@ const Home: React.FC = () => {
     }
   };
 
-  const selectUser = (login: string) => {
+  const selectUser = (login: string): void => {
     history.push(`/${login}`);
   };
 
@@ -54,11 +54,13 @@ const Home: React.FC = () => {
             <CircularProgress />
           </Progress>
         )}
-        {!loading && users.length !== 0 && users.map((user: ListUser) => (
-          <Grid item xs={12} md={6} key={user.login}>
-            <HomeCard user={user} selectUser={selectUser} />
-          </Grid>
-        ))}
+        {!loading &&
+          users.length !== 0 &&
+          users.map((user: ListUser) => (
+            <Grid item xs={12} md={6} key={user.login}>
+              <HomeCard user={user} selectUser={selectUser} />
+            </Grid>
+          ))}
         {!loading && users.length === 0 && <NotFound />}
       </Grid>
     </Container>

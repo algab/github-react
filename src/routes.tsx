@@ -5,7 +5,7 @@ import { LinearProgress } from '@material-ui/core';
 const Home = lazy(() => import('./pages/Home'));
 const User = lazy(() => import('./pages/User'));
 
-const Routes = () => (
+const Routes: React.FC = () => (
   <Suspense fallback={<LinearProgress />}>
     <BrowserRouter>
       <Switch>
@@ -13,7 +13,7 @@ const Routes = () => (
         <Route path="/:name" component={User} exact />
         <Redirect from="*" to="/" />
       </Switch>
-    </ BrowserRouter>
+    </BrowserRouter>
   </Suspense>
 );
 

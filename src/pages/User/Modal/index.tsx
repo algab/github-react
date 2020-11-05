@@ -25,8 +25,8 @@ const UserModal: React.FC<Props> = ({ name, open, handleClose, data }) => {
       <DialogContent>
         {data.length !== 0 && (
           <List>
-            {data.map((repo: Repository, index: number) => (
-              <ListItem key={index} divider>
+            {data.map((repo: Repository) => (
+              <ListItem divider key={repo.name}>
                 <div>
                   <p>Nome: {repo.name}</p>
                   <p>Github: {repo.full_name}</p>

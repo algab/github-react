@@ -12,7 +12,7 @@ ReactDOM.render(
   <Context>
     <Routes />
   </Context>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 reportWebVitals();
