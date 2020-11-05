@@ -29,7 +29,8 @@ const UserModal: React.FC<Props> = ({ name, open, handleClose, data }) => {
               <ListItem key={index} divider>
                 <div>
                   <p>Nome: {repo.name}</p>
-                  <p>Linguagem: {repo.language}</p>
+                  <p>Github: {repo.full_name}</p>
+                  {repo.language !== null && <p>Linguagem: {repo.language}</p>}
                 </div>
               </ListItem>
             ))}

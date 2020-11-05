@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Container, CircularProgress } from '@material-ui/core';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
+import NotFound from '../../components/NotFound';
+import ToastContext from '../../contexts/Toast';
 import api from '../../services/api';
 import { UserGithub, Repository } from '../../utils/types';
 
@@ -23,25 +25,34 @@ const User: React.FC = () => {
   const [dialogRepository, setDialogRepository] = useState(false);
   const [dialogStar, setDialogStar] = useState(false);
 
+  const { handleToast, setMessage } = useContext<any>(ToastContext);
+
   const params = useParams<UserProps>();
 
   useEffect(() => {
     async function getUser() {
-      setLoading(true);
-      const response = await api.get(`/users/${params.name}`);
-      if (response.status === 200) {
-        const result = await axios.all([
-          api.get(`/users/${params.name}/repos`),
-          api.get(`/users/${params.name}/starred`)
-        ]);
-        setRepositories(result[0].data);
-        setStars(result[1].data);
+      try {
+        setLoading(true);
+        const response = await api.get(`/users/${params.name}`);
+        if (response.status === 200) {
+          const result = await axios.all([
+            api.get(`/users/${params.name}/repos`),
+            api.get(`/users/${params.name}/starred`)
+          ]);
+          setRepositories(result[0].data);
+          setStars(result[1].data);
+        }
+        setUser(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);        
+        setLoading(false);
+        setMessage('Usuário não encontrado.');
+        handleToast(true);
       }
-      setUser(response.data);
-      setLoading(false);
     }
     getUser();
-  }, [params]);
+  }, [params, handleToast, setMessage]);
 
   const openLink = () => {
     if (user?.html_url) {
@@ -57,6 +68,7 @@ const User: React.FC = () => {
             <CircularProgress />
           </Progress>
         )}
+        {!loading && user === null && <NotFound />}
         {!loading && user !== null && (
           <UserCard
             user={user}
