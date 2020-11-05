@@ -7,13 +7,13 @@ const User = lazy(() => import('./pages/User'));
 
 const Routes = () => (
   <Suspense fallback={<LinearProgress />}>
-      <BrowserRouter>
-          <Switch>
-              <Route path="/" component={Home} exact />
-              <Route path="/:name" component={User} />
-              <Redirect from="*" to="/" />
-          </Switch>
-      </ BrowserRouter>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" component={Home} exact />
+        <Route path="/:name" component={User} exact />
+        <Redirect from="*" to="/" />
+      </Switch>
+    </ BrowserRouter>
   </Suspense>
 );
 
