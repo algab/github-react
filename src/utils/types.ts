@@ -17,5 +17,6 @@ export type UserGithub = {
 
 export type Repository = {
   name: string,
+  full_name: string,
   language: string,
 };
