@@ -28,7 +28,7 @@ const Home: React.FC = () => {
   const searchUsers = async (): Promise<void> => {
     try {
       setLoading(true);
-      const response = await api.get(`/search/users?q=${nick}&per_page=6`);
+      const response = await api.get(`/search/users?q=${nick}&per_page=8`);
       setUsers(response.data.items);
       setLoading(false);
     } catch (error) {
