@@ -44,8 +44,8 @@ const Home: React.FC = () => {
   };
 
   return (
-    <Container maxWidth="md">
-      <Grid container spacing={3}>
+    <Container maxWidth="md" style={{ height: '100%' }}>
+      <Grid container spacing={3} style={{ height: '100%' }}>
         <Grid item xs={12}>
           <HomeInput handleNick={handleNick} searchUsers={searchUsers} />
         </Grid>
