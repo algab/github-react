@@ -1,6 +1,7 @@
-import React, { ChangeEvent, useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { CircularProgress, Container, Grid } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 import NotFound from '../../components/NotFound';
 import ToastContext from '../../contexts/Toast';
@@ -13,7 +14,7 @@ import HomeInput from './Input';
 import { Progress } from './styles';
 
 const Home: React.FC = () => {
-  const [nick, setNick] = useState<string>('');
+  const [nick, setNick] = useState<string>();
   const [users, setUsers] = useState<ListUser[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -21,22 +22,37 @@ const Home: React.FC = () => {
 
   const history = useHistory();
 
-  const handleNick = (event: ChangeEvent<HTMLInputElement>): void => {
-    setNick(event.target.value);
-  };
+  useEffect(() => {
+    const source = axios.CancelToken.source();
+    const searchUsers = async (): Promise<void> => {
+      try {
+        if (nick === undefined) {
+          setUsers([]);
+        } else {
+          setLoading(true);
+          const response = await api.get(`/search/users?q=${nick}&per_page=8`, {
+            cancelToken: source.token,
+          });
+          setUsers(response.data.items);
+          setLoading(false);
+        }
+      } catch (error) {
+        if (!axios.isCancel(error)) {
+          setLoading(false);
+          setUsers([]);
+          setMessage('Ocorreu um erro, tente novamente mais tarde.');
+          handleToast(true);
+        }
+      }
+    };
+    searchUsers();
+    return () => {
+      source.cancel();
+    };
+  }, [nick, setMessage, handleToast]);
 
-  const searchUsers = async (): Promise<void> => {
-    try {
-      setLoading(true);
-      const response = await api.get(`/search/users?q=${nick}&per_page=8`);
-      setUsers(response.data.items);
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      setUsers([]);
-      setMessage('Ocorreu um erro, tente novamente mais tarde.');
-      handleToast(true);
-    }
+  const handleNick = (name: string): void => {
+    setNick(name);
   };
 
   const selectUser = (login: string): void => {
@@ -47,7 +63,7 @@ const Home: React.FC = () => {
     <Container maxWidth="md" style={{ height: '100%' }}>
       <Grid container spacing={3} style={{ height: '100%' }}>
         <Grid item xs={12}>
-          <HomeInput handleNick={handleNick} searchUsers={searchUsers} />
+          <HomeInput handleNick={handleNick} />
         </Grid>
         {loading && (
           <Progress>
