@@ -21,7 +21,6 @@ export const ToastProvider: React.FC<Props> = ({ children }) => {
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         open={showToast}
         autoHideDuration={2000}
-        onClose={() => setShowToast(false)}
         message={messageToast}
       />
       {children}

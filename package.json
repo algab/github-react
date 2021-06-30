@@ -49,6 +49,15 @@
     "msw": "^0.30.0",
     "prettier": "^2.1.2"
   },
+  "jest": {
+    "collectCoverageFrom": [
+      "!src/routes.tsx",
+      "!src/index.tsx",
+      "!src/**/*.ts",
+      "!src/__tests__/**", 
+      "!src/assets/**"
+    ]
+  },
   "browserslist": {
     "production": [
       ">0.2%",
