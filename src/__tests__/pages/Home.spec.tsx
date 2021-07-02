@@ -14,7 +14,8 @@ import users from '../json/users.json';
 describe('Testing Home page', () => {
   it('must load component successfully', async () => {
     render(<Home />);
-    expect(screen.getByText('Pesquise por um usuário válido do Github')).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: /github logo/i })).toBeInTheDocument();
+    expect(screen.getByText(/pesquise por um usuário válido do github/i)).toBeInTheDocument();
   });
   it('should show a load when user submits survey', () => {
     const server = setupServer(
@@ -77,7 +78,7 @@ describe('Testing Home page', () => {
     fireEvent.keyDown(input, { key: 'Enter', code: 13 });
     expect(document.querySelector('.MuiCircularProgress-svg')).toBeVisible();
     await waitFor(() => {
-      expect(screen.getByText('Pesquise por um usuário válido do Github')).toBeInTheDocument();
+      expect(screen.getByText(/pesquise por um usuário válido do github/i)).toBeInTheDocument();
     });
     server.close();
   });
@@ -96,7 +97,7 @@ describe('Testing Home page', () => {
     fireEvent.keyDown(input, { key: 'Enter', code: 13 });
     expect(document.querySelector('.MuiCircularProgress-svg')).toBeVisible();
     await waitFor(() => {
-      expect(screen.getByText('Pesquise por um usuário válido do Github')).toBeInTheDocument();
+      expect(screen.getByText(/pesquise por um usuário válido do github/i)).toBeInTheDocument();
     });
     server.close();
   });
