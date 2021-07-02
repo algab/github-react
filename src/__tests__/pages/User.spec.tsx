@@ -39,7 +39,7 @@ describe('Testing User page', () => {
     );
     server.listen();
     renderWithRouter('algab');
-    expect(document.querySelector('.MuiCircularProgress-svg')).toBeInTheDocument();
+    expect(document.querySelector('.MuiCircularProgress-svg')).toBeVisible();
     await waitFor(() => expect(screen.getByText('algab')).toBeInTheDocument());
     expect(screen.getByText('Álvaro Oliveira')).toBeInTheDocument();
     server.close();
@@ -52,7 +52,7 @@ describe('Testing User page', () => {
     );
     server.listen();
     renderWithRouter('algab');
-    expect(document.querySelector('.MuiCircularProgress-svg')).toBeInTheDocument();
+    expect(document.querySelector('.MuiCircularProgress-svg')).toBeVisible();
     await waitFor(() => {
       expect(screen.getByText('Pesquise por um usuário válido do Github')).toBeInTheDocument();
     });
@@ -72,9 +72,10 @@ describe('Testing User page', () => {
     );
     server.listen();
     renderWithRouter('algab');
-    expect(document.querySelector('.MuiCircularProgress-svg')).toBeInTheDocument();
+    expect(document.querySelector('.MuiCircularProgress-svg')).toBeVisible();
     await waitFor(() => expect(screen.getByText('algab')).toBeInTheDocument());
     expect(screen.getByText('Álvaro Oliveira')).toBeInTheDocument();
+    expect(screen.getByText('Repositórios')).toBeVisible();
     userEvent.click(screen.getByText('Repositórios'));
     server.close();
   });
@@ -92,9 +93,10 @@ describe('Testing User page', () => {
     );
     server.listen();
     renderWithRouter('algab');
-    expect(document.querySelector('.MuiCircularProgress-svg')).toBeInTheDocument();
+    expect(document.querySelector('.MuiCircularProgress-svg')).toBeVisible();
     await waitFor(() => expect(screen.getByText('algab')).toBeInTheDocument());
     expect(screen.getByText('Álvaro Oliveira')).toBeInTheDocument();
+    expect(screen.getByText('Stars')).toBeVisible();
     userEvent.click(screen.getByText('Stars'));
     server.close();
   });
@@ -113,7 +115,7 @@ describe('Testing User page', () => {
     server.listen();
     renderWithRouter('algab');
     global.open = jest.fn();
-    expect(document.querySelector('.MuiCircularProgress-svg')).toBeInTheDocument();
+    expect(document.querySelector('.MuiCircularProgress-svg')).toBeVisible();
     await waitFor(() => expect(screen.getByText('algab')).toBeInTheDocument());
     expect(screen.getByText('Álvaro Oliveira')).toBeInTheDocument();
     userEvent.click(screen.getByText('Github'));
