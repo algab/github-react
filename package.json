@@ -47,9 +47,10 @@
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
     "history": "^5.0.0",
+    "husky": "^7.0.0",
+    "lint-staged": "^11.0.0",
     "msw": "^0.30.0",
-    "prettier": "^2.1.2",
-    "husky": "^7.0.0"
+    "prettier": "^2.1.2"
   },
   "jest": {
     "collectCoverageFrom": [
