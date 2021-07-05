@@ -28,20 +28,21 @@ describe('Testing User page', () => {
   it('must successfully load user information', async () => {
     const server = setupServer(
       rest.get('https://api.github.com/users/algab', (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json(nick));
+        return res(ctx.json(nick));
       }),
       rest.get('https://api.github.com/users/algab/repos', (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json(repos));
+        return res(ctx.json(repos));
       }),
       rest.get('https://api.github.com/users/algab/starred', (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json(stars));
+        return res(ctx.json(stars));
       }),
     );
     server.listen();
     renderWithRouter('algab');
     expect(document.querySelector('.MuiCircularProgress-svg')).toBeVisible();
-    await waitFor(() => expect(screen.getByText('algab')).toBeInTheDocument());
-    expect(screen.getByText('Álvaro Oliveira')).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByText(/algab/i)).toBeInTheDocument());
+    expect(screen.getByText(/álvaro oliveira/i)).toBeInTheDocument();
+    expect(screen.getByText(/10\/07\/2017/i)).toBeInTheDocument();
     server.close();
   });
   it('should give error loading user information', async () => {
@@ -53,72 +54,74 @@ describe('Testing User page', () => {
     server.listen();
     renderWithRouter('algab');
     expect(document.querySelector('.MuiCircularProgress-svg')).toBeVisible();
-    await waitFor(() => {
-      expect(screen.getByText('Pesquise por um usuário válido do Github')).toBeInTheDocument();
-    });
+    await waitFor(() =>
+      expect(screen.getByRole('img', { name: /github logo/i })).toBeInTheDocument(),
+    );
+    expect(screen.getByText(/pesquise por um usuário válido do github/i)).toBeInTheDocument();
     server.close();
   });
   it('must load the user information and click on the repositories button', async () => {
     const server = setupServer(
       rest.get('https://api.github.com/users/algab', (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json(nick));
+        return res(ctx.json(nick));
       }),
       rest.get('https://api.github.com/users/algab/repos', (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json(repos));
+        return res(ctx.json(repos));
       }),
       rest.get('https://api.github.com/users/algab/starred', (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json(stars));
+        return res(ctx.json(stars));
       }),
     );
     server.listen();
     renderWithRouter('algab');
     expect(document.querySelector('.MuiCircularProgress-svg')).toBeVisible();
-    await waitFor(() => expect(screen.getByText('algab')).toBeInTheDocument());
-    expect(screen.getByText('Álvaro Oliveira')).toBeInTheDocument();
-    expect(screen.getByText('Repositórios')).toBeVisible();
-    userEvent.click(screen.getByText('Repositórios'));
+    await waitFor(() => expect(screen.getByText(/algab/i)).toBeInTheDocument());
+    expect(screen.getByText(/álvaro oliveira/i)).toBeInTheDocument();
+    expect(screen.getByText(/repositórios/i)).toBeVisible();
+    userEvent.click(screen.getByText(/repositórios/i));
     server.close();
   });
   it('must load the user information and click the stars button', async () => {
     const server = setupServer(
       rest.get('https://api.github.com/users/algab', (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json(nick));
+        return res(ctx.json(nick));
       }),
       rest.get('https://api.github.com/users/algab/repos', (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json(repos));
+        return res(ctx.json(repos));
       }),
       rest.get('https://api.github.com/users/algab/starred', (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json(stars));
+        return res(ctx.json(stars));
       }),
     );
     server.listen();
     renderWithRouter('algab');
     expect(document.querySelector('.MuiCircularProgress-svg')).toBeVisible();
-    await waitFor(() => expect(screen.getByText('algab')).toBeInTheDocument());
-    expect(screen.getByText('Álvaro Oliveira')).toBeInTheDocument();
-    expect(screen.getByText('Stars')).toBeVisible();
-    userEvent.click(screen.getByText('Stars'));
+    await waitFor(() => expect(screen.getByText(/algab/i)).toBeInTheDocument());
+    expect(screen.getByText(/álvaro oliveira/i)).toBeInTheDocument();
+    expect(screen.getByText(/stars/i)).toBeVisible();
+    userEvent.click(screen.getByText(/stars/i));
     server.close();
   });
   it('must load the user information and click the github button', async () => {
     const server = setupServer(
       rest.get('https://api.github.com/users/algab', (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json(nick));
+        return res(ctx.json(nick));
       }),
       rest.get('https://api.github.com/users/algab/repos', (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json(repos));
+        return res(ctx.json(repos));
       }),
       rest.get('https://api.github.com/users/algab/starred', (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json(stars));
+        return res(ctx.json(stars));
       }),
     );
     server.listen();
     renderWithRouter('algab');
     global.open = jest.fn();
     expect(document.querySelector('.MuiCircularProgress-svg')).toBeVisible();
-    await waitFor(() => expect(screen.getByText('algab')).toBeInTheDocument());
-    expect(screen.getByText('Álvaro Oliveira')).toBeInTheDocument();
-    userEvent.click(screen.getByText('Github'));
+    await waitFor(() => expect(screen.getByText(/algab/i)).toBeInTheDocument());
+    expect(screen.getByText(/álvaro oliveira/i)).toBeInTheDocument();
+    expect(screen.getByText(/github/i)).toBeVisible();
+    userEvent.click(screen.getByText(/github/i));
     server.close();
   });
 });

@@ -20,7 +20,7 @@ describe('Testing Home page', () => {
   it('should show a load when user submits survey', () => {
     const server = setupServer(
       rest.get('https://api.github.com/search/users', (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json(users));
+        return res(ctx.json(users));
       }),
     );
     server.listen();
@@ -34,7 +34,7 @@ describe('Testing Home page', () => {
   it('should show the list of users with the typed name when pressing the enter key', async () => {
     const server = setupServer(
       rest.get('https://api.github.com/search/users', (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json(users));
+        return res(ctx.json(users));
       }),
     );
     server.listen();
@@ -44,14 +44,14 @@ describe('Testing Home page', () => {
     fireEvent.keyDown(input, { key: 'Enter', code: 13 });
     expect(document.querySelector('.MuiCircularProgress-svg')).toBeVisible();
     await waitFor(() => expect(screen.getByText('algab')).toBeInTheDocument());
-    expect(screen.getAllByAltText('Profile Photo').length).toBe(1);
-    expect(screen.getByText('Visualizar')).toBeVisible();
+    expect(screen.getAllByRole('img', { name: /profile photo/i }).length).toBe(1);
+    expect(screen.getByText(/visualizar/i)).toBeVisible();
     server.close();
   });
   it('should show the list of users with the typed name when pressing the button', async () => {
     const server = setupServer(
       rest.get('https://api.github.com/search/users', (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json(users));
+        return res(ctx.json(users));
       }),
     );
     server.listen();
@@ -61,14 +61,14 @@ describe('Testing Home page', () => {
     userEvent.click(screen.getByRole('button', { hidden: true }));
     expect(document.querySelector('.MuiCircularProgress-svg')).toBeVisible();
     await waitFor(() => expect(screen.getByText('algab')).toBeInTheDocument());
-    expect(screen.getAllByAltText('Profile Photo').length).toBe(1);
-    expect(screen.getByText('Visualizar')).toBeVisible();
+    expect(screen.getAllByRole('img', { name: /profile photo/i }).length).toBe(1);
+    expect(screen.getByText(/visualizar/i)).toBeVisible();
     server.close();
   });
   it('should show a message stating that it cannot find the desired user', async () => {
     const server = setupServer(
       rest.get('https://api.github.com/search/users', (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json({ items: [] }));
+        return res(ctx.json({ items: [] }));
       }),
     );
     server.listen();
@@ -104,7 +104,7 @@ describe('Testing Home page', () => {
   it('should show user lists and select the desired user', async () => {
     const server = setupServer(
       rest.get('https://api.github.com/search/users', (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json(users));
+        return res(ctx.json(users));
       }),
     );
     server.listen();
@@ -119,8 +119,8 @@ describe('Testing Home page', () => {
     fireEvent.keyDown(input, { key: 'Enter', code: 13 });
     expect(document.querySelector('.MuiCircularProgress-svg')).toBeVisible();
     await waitFor(() => expect(screen.getByText('algab')).toBeInTheDocument());
-    expect(screen.getAllByAltText('Profile Photo').length).toBe(1);
-    userEvent.click(screen.getByText('Visualizar'));
+    expect(screen.getAllByRole('img', { name: /profile photo/i }).length).toBe(1);
+    expect(screen.getByText(/visualizar/i)).toBeVisible();
     server.close();
   });
 });
