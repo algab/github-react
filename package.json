@@ -54,7 +54,6 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "!src/routes.tsx",
       "!src/index.tsx",
       "!src/**/*.ts",
       "!src/__tests__/**",
