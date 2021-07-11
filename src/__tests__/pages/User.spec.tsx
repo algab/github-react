@@ -79,6 +79,7 @@ describe('Testing User page', () => {
     expect(screen.getByText(/álvaro oliveira/i)).toBeInTheDocument();
     expect(screen.getByText(/repositórios/i)).toBeVisible();
     userEvent.click(screen.getByText(/repositórios/i));
+    await waitFor(() => expect(screen.getByText(/nome: api\-chat\-socket/i)).toBeInTheDocument());
     server.close();
   });
   it('must load the user information and click the stars button', async () => {
@@ -100,6 +101,7 @@ describe('Testing User page', () => {
     expect(screen.getByText(/álvaro oliveira/i)).toBeInTheDocument();
     expect(screen.getByText(/stars/i)).toBeVisible();
     userEvent.click(screen.getByText(/stars/i));
+    await waitFor(() => expect(screen.getByText(/nome: app\-ideas/i)).toBeInTheDocument());
     server.close();
   });
   it('must load the user information and click the github button', async () => {

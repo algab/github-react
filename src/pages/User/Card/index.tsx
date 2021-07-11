@@ -19,7 +19,7 @@ import { UserGithub } from '../../../utils/types';
 import { DivCard, CardHeader, ImgUser, NickUser } from './styles';
 
 interface Props {
-  user: UserGithub | null;
+  user: UserGithub;
   openRepository(): void;
   openStar(): void;
   openLink(): void;
@@ -61,7 +61,7 @@ const UserCard: React.FC<Props> = ({ user, openRepository, openStar, openLink })
             <ListItem>
               <ListItemText
                 primary="Conta Criada"
-                secondary={format(new Date(user?.created_at || ''), 'dd/MM/yyyy')}
+                secondary={format(new Date(user.created_at), 'dd/MM/yyyy')}
               />
             </ListItem>
           </List>

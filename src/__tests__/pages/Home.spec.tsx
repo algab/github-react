@@ -120,7 +120,8 @@ describe('Testing Home page', () => {
     expect(document.querySelector('.MuiCircularProgress-svg')).toBeVisible();
     await waitFor(() => expect(screen.getByText('algab')).toBeInTheDocument());
     expect(screen.getAllByRole('img', { name: /profile photo/i }).length).toBe(1);
-    expect(screen.getByText(/visualizar/i)).toBeVisible();
+    userEvent.click(screen.getByText(/visualizar/i));
+    await waitFor(() => expect(screen.getByText(/algab/i)).toBeInTheDocument());
     server.close();
   });
 });
