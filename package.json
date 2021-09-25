@@ -1,13 +1,11 @@
 {
   "name": "github-react",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --watchAll=false",
     "test:coverage": "react-scripts test --coverage --watchAll=false",
-    "test:coveralls": "react-scripts test --watchAll=false && coveralls < coverage/lcov.info",
     "eject": "react-scripts eject",
     "prepare": "husky install"
   },
@@ -36,7 +34,6 @@
     "@types/styled-components": "^5.1.4",
     "@typescript-eslint/eslint-plugin": "^4.6.1",
     "@typescript-eslint/parser": "^4.6.1",
-    "coveralls": "^3.1.1",
     "eslint": "^7.12.1",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-prettier": "^6.15.0",
