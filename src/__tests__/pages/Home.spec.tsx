@@ -42,8 +42,7 @@ describe('Testing Home page', () => {
     const input = screen.getByRole('textbox');
     userEvent.type(input, 'algab');
     fireEvent.keyDown(input, { key: 'Enter', code: 13 });
-    expect(document.querySelector('.MuiCircularProgress-svg')).toBeVisible();
-    await waitFor(() => expect(screen.getByText('algab')).toBeInTheDocument());
+    expect(await screen.findByText('algab')).toBeInTheDocument();
     expect(screen.getAllByRole('img', { name: /profile photo/i }).length).toBe(1);
     expect(screen.getByText(/visualizar/i)).toBeVisible();
     server.close();
@@ -59,8 +58,7 @@ describe('Testing Home page', () => {
     const input = screen.getByRole('textbox');
     userEvent.type(input, 'algab');
     userEvent.click(screen.getByRole('button', { hidden: true }));
-    expect(document.querySelector('.MuiCircularProgress-svg')).toBeVisible();
-    await waitFor(() => expect(screen.getByText('algab')).toBeInTheDocument());
+    expect(await screen.findByText('algab')).toBeInTheDocument();
     expect(screen.getAllByRole('img', { name: /profile photo/i }).length).toBe(1);
     expect(screen.getByText(/visualizar/i)).toBeVisible();
     server.close();
@@ -76,10 +74,9 @@ describe('Testing Home page', () => {
     const input = screen.getByRole('textbox');
     userEvent.type(input, 'nick test');
     fireEvent.keyDown(input, { key: 'Enter', code: 13 });
-    expect(document.querySelector('.MuiCircularProgress-svg')).toBeVisible();
-    await waitFor(() => {
-      expect(screen.getByText(/pesquise por um usuário válido do github/i)).toBeInTheDocument();
-    });
+    expect(
+      await screen.findByText(/pesquise por um usuário válido do github/i),
+    ).toBeInTheDocument();
     server.close();
   });
   it('should show a message stating that there was an error', async () => {
